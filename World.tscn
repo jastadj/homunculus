@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://GameController.gd" type="Script" id=1]
+[ext_resource path="res://Player.gd" type="Script" id=2]
+[ext_resource path="res://InputAreaSprite.tscn" type="PackedScene" id=3]
+[ext_resource path="res://InputArea.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 9.84135, 10 )
+
+[sub_resource type="Curve2D" id=2]
+
+bake_interval = 5.0
+_data = {
+"points": PoolVector2Array( 0, 0, -34.3767, -65.0701, 237.551, 191.823, 68.7533, 154.695, -34.3767, -54.0205, -3.08513, 3.97881, 0, 0, 0, 0, -170.057, -26.7146 )
+}
+
+[node name="World" type="Node" index="0"]
+
+script = ExtResource( 1 )
+speed = 2.0
+maxSpeed = 12.0
+spawnDelay = 2.0
+minSpawnDelay = 0.5
+startSpawnDelay = 2.0
+
+[node name="Player" type="Node" parent="." index="0"]
+
+script = ExtResource( 2 )
+
+[node name="InputAreaSprite" parent="." index="1" instance=ExtResource( 3 )]
+
+position = Vector2( 609.448, 501.978 )
+
+[node name="InputArea" type="Area2D" parent="." index="2"]
+
+editor/display_folded = true
+position = Vector2( 375.671, 500.636 )
+scale = Vector2( 5.08015, 1.6367 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InputArea" index="0"]
+
+shape = SubResource( 1 )
+
+[node name="Path2D" type="Path2D" parent="." index="3"]
+
+position = Vector2( 127.09, 86.6957 )
+curve = SubResource( 2 )
+_sections_unfolded = [ "Material", "Pause", "Transform", "Visibility", "Z Index" ]
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" index="0"]
+
+position = Vector2( -164.517, -22.0993 )
+offset = 0.0
+h_offset = 0.0
+v_offset = 0.0
+rotate = true
+cubic_interp = true
+loop = true
+lookahead = 4.0
+
+
