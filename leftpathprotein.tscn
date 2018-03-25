@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://PathFollow2D.gd" type="Script" id=1]
+[ext_resource path="res://protein_path.tscn" type="PackedScene" id=2]
+[ext_resource path="res://atgc.png" type="Texture" id=3]
+
+[node name="PathFollow2D" type="PathFollow2D"]
+
+position = Vector2( -302.622, 130.904 )
+rotation = 0.145512
+offset = 0.0
+h_offset = 0.0
+v_offset = 0.0
+rotate = true
+cubic_interp = true
+loop = true
+lookahead = 4.0
+script = ExtResource( 1 )
+speed = 0.008
+
+[node name="Sprite" parent="." index="0" instance=ExtResource( 2 )]
+
+position = Vector2( 9.20572, -97.6577 )
+
+[node name="Sprite2" type="Sprite" parent="." index="1"]
+
+position = Vector2( 9.25638, -275.413 )
+rotation = 1.5708
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+vframes = 4
+frame = 1
+_sections_unfolded = [ "Animation", "Transform" ]
+
+

@@ -19,6 +19,9 @@ var inputAreaY
 # player controller
 var player
 
+# left path
+var leftPath
+
 # timer / speed
 var mytimer
 
@@ -38,6 +41,9 @@ func _ready():
 	player = get_node("/root/World/Player")
 	player.connect("pressed_protein", self, "submitProtein")
 	
+	# get left path node
+	leftPath = get_node("/root/World/LeftPath")
+	
 	# setup timer
 	mytimer = Timer.new()
 	add_child(mytimer)
@@ -46,21 +52,18 @@ func _ready():
 	mytimer.connect("timeout", self, "nextSpawn")
 	mytimer.start()
 
+
 func nextSpawn():
 	
-	speed += 0.1
-	if speed > maxSpeed:
-		speed = maxSpeed
-		
-	spawnDelay -= 0.1
-	if spawnDelay < minSpawnDelay:
-		spawnDelay = minSpawnDelay
-		
 	mytimer.set_wait_time(spawnDelay)
 	mytimer.start()
-	spawnProtein(randi()%4, true)
+	spawnLeftProtein(randi()%4)
 
-func spawnProtein(ptype, nisleft):
+func spawnLeftProtein(ptype):
+	leftPath.spawnLeftProtein(ptype)
+	pass
+
+func spawnProtein_old(ptype, nisleft):
 	var proteinScene = load("res://protein.tscn")
 	var protein = proteinScene.instance()
 	
@@ -86,7 +89,16 @@ func submitProtein(source, protein):
 	print("proteins in area : " + str(plist.size()) )
 	
 	for p in plist:
-		print("protein pos: " + str(p.get_parent().position) )
-		var newprotein = spawnProtein(protein, false)
-		newprotein.position.y = p.get_parent().position.y
+		print("protein pos: " + str(p.get_parent().get_parent().position) )
+		p.get_parent().get_parent().setCompliment(protein)
+
+func ScoreEmpty():
+	print("Score empty")
+
+func ScoreGood():
+	print("Score good")
+
+func ScoreBad():
+	print("Score bad")
+
 	

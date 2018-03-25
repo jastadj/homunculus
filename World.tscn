@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://GameController.gd" type="Script" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
 [ext_resource path="res://InputAreaSprite.tscn" type="PackedScene" id=3]
 [ext_resource path="res://InputArea.gd" type="Script" id=4]
+[ext_resource path="res://LeftPath.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -14,10 +15,10 @@ extents = Vector2( 9.84135, 10 )
 
 bake_interval = 5.0
 _data = {
-"points": PoolVector2Array( 0, 0, -34.3767, -65.0701, 237.551, 191.823, 68.7533, 154.695, -34.3767, -54.0205, -3.08513, 3.97881, 0, 0, 0, 0, -170.057, -26.7146 )
+"points": PoolVector2Array( 0, 0, 0, 0, -302.622, 130.904, 0, 0, 0, 0, -128.032, 176.31, 0, 0, 22.5846, 2.86789, -24.7325, 185.533, -13.9119, -4.48418, 16.2896, 3.42404, 29.0256, 196.864, -14.4748, -5.6834, 10.6648, 5.92796, 66.9724, 208.986, -11.9431, -6.80115, 16.0879, 9.22247, 98.0678, 224.534, -11.1956, -12.1, 8.69543, 9.07283, 132.062, 249.568, -10.0469, -18.2891, 6.1706, 14.1154, 157.096, 285.671, -4.28515, -14.2891, 5.95594, 17.7516, 173, 327, -2.78562, -10.7397, 3.69314, 15.1114, 184.035, 365.126, -2.23319, -13.0675, 1.9412, 19.0885, 192.397, 401.216, -1.3176, -15.0206, 1.3176, 12.649, 195.918, 437.307, -0.52704, -19.5005, 0.79056, 24.7709, 198, 512, 0, 0, 0, 0, 200, 563, 0, 0, 0, 0, 200.457, 637.365, 0, 0, 0, 0, 201.36, 696.027, 0, 0, 0, 0, 201.36, 764.617, 0, 0, 0, 0, 207.677, 848.55 )
 }
 
-[node name="World" type="Node" index="0"]
+[node name="World" type="Node"]
 
 script = ExtResource( 1 )
 speed = 2.0
@@ -52,21 +53,10 @@ script = ExtResource( 4 )
 
 shape = SubResource( 1 )
 
-[node name="Path2D" type="Path2D" parent="." index="3"]
+[node name="LeftPath" type="Path2D" parent="." index="3"]
 
-position = Vector2( 127.09, 86.6957 )
+position = Vector2( -31, -2 )
 curve = SubResource( 2 )
-_sections_unfolded = [ "Material", "Pause", "Transform", "Visibility", "Z Index" ]
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" index="0"]
-
-position = Vector2( -164.517, -22.0993 )
-offset = 0.0
-h_offset = 0.0
-v_offset = 0.0
-rotate = true
-cubic_interp = true
-loop = true
-lookahead = 4.0
+script = ExtResource( 5 )
 
 
