@@ -22,8 +22,18 @@ var player
 # left path
 var leftPath
 
-# timer / speed
-var mytimer
+# score
+var score = 0
+var sequenceList = []
+const points_good = 20
+const points_bad = 5
+const points_missed = 0
+
+# waves
+export(int) var waves = 1
+export(int) var waveCount = 10
+var waveText
+
 
 func _ready():
 	
@@ -44,20 +54,43 @@ func _ready():
 	# get left path node
 	leftPath = get_node("/root/World/LeftPath")
 	
-	# setup timer
-	mytimer = Timer.new()
-	add_child(mytimer)
-	mytimer.set_one_shot(false)
-	mytimer.set_wait_time(startSpawnDelay)
-	mytimer.connect("timeout", self, "nextSpawn")
-	mytimer.start()
+	# start waves
+	waveText = get_node("/root/World/WaveText")
+	waveText.text = ""
+	nextSpawn()
 
 
 func nextSpawn():
 	
-	mytimer.set_wait_time(spawnDelay)
-	mytimer.start()
-	spawnLeftProtein(randi()%4)
+	#delay start
+	yield(get_tree().create_timer(2.0), "timeout")
+		
+	# start wave
+	for w in waves:
+		
+		waveText.text = "Starting DNA Sequence " + str(w+1)
+		yield(get_tree().create_timer(2.0), "timeout")
+		waveText.text = ""
+		
+		
+		# spawn wave count
+		for c in waveCount:
+			
+			var newsequence = randi()%4
+			spawnLeftProtein(newsequence)
+			sequenceList.append(newsequence)
+			
+			yield(get_tree().create_timer(2.0), "timeout")
+		
+		waveText.text = "Sequence Complete!"
+		yield(get_tree().create_timer(2.0), "timeout")
+		waveText.text = ""
+		
+		yield(get_tree().create_timer(1.0), "timeout")
+	
+	var sequenceSuccess = float( ( float(score) / ( float(sequenceList.size()) * points_good)) * float(100) )
+	waveText.text = "Success : " + str(sequenceSuccess) + "%"
+	print("Game complete with score of " + str(score) + "/" + str(sequenceList.size()*points_good) )
 
 func spawnLeftProtein(ptype):
 	leftPath.spawnLeftProtein(ptype)
@@ -94,11 +127,14 @@ func submitProtein(source, protein):
 
 func ScoreEmpty():
 	print("Score empty")
+	score += points_missed
 
 func ScoreGood():
 	print("Score good")
+	score += points_good
 
 func ScoreBad():
 	print("Score bad")
+	score += points_bad
 
 	
