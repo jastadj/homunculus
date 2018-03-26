@@ -13,4 +13,6 @@ func _process(delta):
 		emit_signal("pressed_protein", self, DNA_G)
 	elif Input.is_action_just_pressed("ui_dna_c"):
 		emit_signal("pressed_protein", self, DNA_C)
+	elif Input.is_key_pressed(KEY_ESCAPE):
+		get_tree().change_scene("res://MainMenu.tscn")
 

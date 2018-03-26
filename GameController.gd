@@ -1,12 +1,5 @@
 extends Node
 
-
-export(float) var speed
-export(float) var maxSpeed
-export(float) var spawnDelay
-export(float) var minSpawnDelay
-export(float) var startSpawnDelay
-
 enum {DNA_A, DNA_T, DNA_G, DNA_C}
 
 # screen resolution
@@ -32,7 +25,8 @@ const points_missed = 0
 # waves
 export(int) var waves = 1
 export(int) var waveCount = 10
-export(float) var initialWaveSpeed = 0.008
+export(float) var waveSpeed = 0.004
+export(float) var waveDelay = 1.0
 var waveText
 
 # power switcher
@@ -74,6 +68,7 @@ func nextSpawn():
 	# start wave
 	for w in waves:
 		
+		# show wave start string
 		waveText.text = "Starting DNA Sequence " + str(w+1)
 		yield(get_tree().create_timer(2.0), "timeout")
 		waveText.text = ""
@@ -83,15 +78,21 @@ func nextSpawn():
 		for c in waveCount:
 			
 			var newsequence = randi()%4
-			spawnLeftProtein(newsequence, initialWaveSpeed)
+			spawnLeftProtein(newsequence, waveSpeed)
 			sequenceList.append(newsequence)
 			
-			yield(get_tree().create_timer(2.0), "timeout")
+			# wait until next protein spawn
+			yield(get_tree().create_timer(waveDelay), "timeout")
 		
+		# wait for path to be empty of any proteins
+		yield(leftPath, "isEmpty")
+		
+		# display wave complete string
 		waveText.text = "Sequence Complete!"
 		yield(get_tree().create_timer(2.0), "timeout")
 		waveText.text = ""
 		
+		# slight delay before starting next wave
 		yield(get_tree().create_timer(1.0), "timeout")
 	
 	var sequenceSuccess = float( ( float(score) / ( float(sequenceList.size()) * points_good)) * float(100) )
@@ -101,30 +102,24 @@ func nextSpawn():
 
 	waveText.text = "Success : " + str(sequenceSuccess) + "%"
 	print("Game complete with score of " + str(score) + "/" + str(sequenceList.size()*points_good) )
-	
 	yield(get_tree().create_timer(3.0), "timeout")
+	
+	# clear text and switch power in
+	waveText.text = ""
+	powerSwitcher.switchIn()
+	yield(powerSwitcher.get_node("Tween"), "tween_completed")
+	
+	# add score to total score
+	global.addToTotalScore(score)
+	
 	get_tree().change_scene("res://MainMenu.tscn")
 
 func spawnLeftProtein(ptype, tspeed):
 	leftPath.spawnLeftProtein(ptype, tspeed)
 	pass
 
-func spawnProtein_old(ptype, nisleft):
-	var proteinScene = load("res://protein.tscn")
-	var protein = proteinScene.instance()
-	
-	get_node("/root/World").add_child(protein)
-	protein.init(ptype, nisleft)
-	
-	if nisleft:
-		protein.position = Vector2((resolution.x/2)-100 + 10, -30)
-	else:
-		protein.position = Vector2((resolution.x/2)+100-12, -30)
-	
-	return protein
-
-func getSpeed():
-	return speed
+#func getSpeed():
+	#return speed
 	
 func submitProtein(source, protein):
 	

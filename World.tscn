@@ -26,14 +26,10 @@ _data = {
 [node name="World" type="Node" index="0"]
 
 script = ExtResource( 1 )
-speed = 2.0
-maxSpeed = 12.0
-spawnDelay = 2.0
-minSpawnDelay = 0.5
-startSpawnDelay = 2.0
 waves = 3
 waveCount = 10
-initialWaveSpeed = 0.004
+waveSpeed = 0.004
+waveDelay = 1.0
 
 [node name="BGColor" type="Sprite" parent="." index="0"]
 
