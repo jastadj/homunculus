@@ -1,14 +1,15 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://GameController.gd" type="Script" id=1]
 [ext_resource path="res://square.png" type="Texture" id=2]
 [ext_resource path="res://BGParticles.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Player.gd" type="Script" id=4]
 [ext_resource path="res://InputAreaSprite.tscn" type="PackedScene" id=5]
-[ext_resource path="res://PowerSwitcher.tscn" type="PackedScene" id=6]
-[ext_resource path="res://InputArea.gd" type="Script" id=7]
-[ext_resource path="res://LeftPath.gd" type="Script" id=8]
-[ext_resource path="res://vignette.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Resources/needle.png" type="Texture" id=6]
+[ext_resource path="res://PowerSwitcher.tscn" type="PackedScene" id=7]
+[ext_resource path="res://InputArea.gd" type="Script" id=8]
+[ext_resource path="res://LeftPath.gd" type="Script" id=9]
+[ext_resource path="res://vignette.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -19,7 +20,7 @@ extents = Vector2( 9.84135, 10 )
 
 bake_interval = 5.0
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, -302.622, 130.904, 0, 0, 0, 0, -128.032, 176.31, 0, 0, 22.5846, 2.86789, -24.7325, 185.533, -13.9119, -4.48418, 16.2896, 3.42404, 29.0256, 196.864, -14.4748, -5.6834, 10.6648, 5.92796, 66.9724, 208.986, -11.9431, -6.80115, 16.0879, 9.22247, 98.0678, 224.534, -11.1956, -12.1, 8.69543, 9.07283, 132.062, 249.568, -10.0469, -18.2891, 6.1706, 14.1154, 157.096, 285.671, -4.28515, -14.2891, 5.95594, 17.7516, 173, 327, -2.78562, -10.7397, 3.69314, 15.1114, 184.035, 365.126, -2.23319, -13.0675, 1.9412, 19.0885, 192.397, 401.216, -1.3176, -15.0206, 1.3176, 12.649, 195.918, 437.307, -0.52704, -19.5005, 0.79056, 24.7709, 198, 512, 0, 0, 0, 0, 200, 563, 0, 0, 0, 0, 200.457, 637.365, 0, 0, 0, 0, 201.36, 696.027, 0, 0, 0, 0, 201.36, 764.617, 0, 0, 0, 0, 207.677, 848.55 )
+"points": PoolVector2Array( 0, 0, 0, 0, -302.622, 130.904, 0, 0, 0, 0, -128.032, 176.31, 0, 0, 22.5846, 2.86789, -24.7325, 185.533, -13.9119, -4.48418, 16.2896, 3.42404, 29.0256, 196.864, -14.4748, -5.6834, 10.6648, 5.92796, 66.9724, 208.986, -11.9431, -6.80115, 16.0879, 9.22247, 98.0678, 224.534, -14.2765, -13.8605, 10.0158, 7.31233, 132.062, 249.568, -6.08576, -13.4477, 8.81136, 9.71414, 175.203, 301.06, -4.28515, -14.2891, 4.66181, 9.33974, 196.38, 354.818, 0.449713, -0.0631027, 0.134274, -0.0946636, 202.081, 441.97, -2.23319, -13.0675, 2.60462, 21.7422, 203.71, 625.234, 0, 0, 0, 0, 205.569, 843.926 )
 }
 
 [node name="World" type="Node" index="0"]
@@ -32,15 +33,18 @@ minSpawnDelay = 0.5
 startSpawnDelay = 2.0
 waves = 3
 waveCount = 10
-initialWaveSpeed = 0.008
+initialWaveSpeed = 0.004
 
-[node name="Sprite" type="Sprite" parent="." index="0"]
+[node name="BGColor" type="Sprite" parent="." index="0"]
 
 modulate = Color( 0.0772552, 0.272125, 0.324219, 1 )
 position = Vector2( 391.938, 292.023 )
 scale = Vector2( 7.12403, 5.56286 )
 texture = ExtResource( 2 )
 _sections_unfolded = [ "Visibility" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="BGParticles" parent="." index="1" instance=ExtResource( 3 )]
 
@@ -50,15 +54,38 @@ script = ExtResource( 4 )
 
 [node name="InputAreaSprite" parent="." index="3" instance=ExtResource( 5 )]
 
-position = Vector2( 609.448, 501.978 )
+position = Vector2( 600.448, 415.978 )
 
-[node name="PowerSwitcher" parent="." index="4" instance=ExtResource( 6 )]
+[node name="Needle" type="Node2D" parent="." index="4"]
+
+position = Vector2( 640.781, 480.139 )
+rotation = 0.397935
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="NeedleSprite" type="Sprite" parent="Needle" index="0"]
+
+texture = ExtResource( 6 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Tween" type="Tween" parent="Needle" index="1"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="PowerSwitcher" parent="." index="5" instance=ExtResource( 7 )]
 
 initOut = false
 
-[node name="InputArea" type="Area2D" parent="." index="5"]
+[node name="InputArea" type="Area2D" parent="." index="6"]
 
-position = Vector2( 375.671, 493.354 )
+position = Vector2( 371.671, 414.354 )
 scale = Vector2( 5.08015, 1.88367 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -67,7 +94,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -78,13 +105,13 @@ scale = Vector2( 1, 2 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="LeftPath" type="Path2D" parent="." index="6"]
+[node name="LeftPath" type="Path2D" parent="." index="7"]
 
-position = Vector2( -31, -2 )
+position = Vector2( -32.4453, -66.7716 )
 curve = SubResource( 2 )
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 
-[node name="Control" type="Control" parent="." index="7"]
+[node name="Control" type="Control" parent="." index="8"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -102,9 +129,9 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="vignette" parent="Control" index="0" instance=ExtResource( 9 )]
+[node name="vignette" parent="Control" index="0" instance=ExtResource( 10 )]
 
-[node name="WaveText" type="Label" parent="." index="8"]
+[node name="WaveText" type="Label" parent="." index="9"]
 
 anchor_left = 0.0
 anchor_top = 0.0

@@ -21,6 +21,7 @@ func switchIn():
 	tween.interpolate_property(self, "position", outPos, inPos, switchSpeed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
 	switcherIn = true
+	get_node("ClickSound").play()
 	
 func switchOut():
 	var tween = get_node("Tween")

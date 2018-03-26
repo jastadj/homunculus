@@ -95,6 +95,10 @@ func nextSpawn():
 		yield(get_tree().create_timer(1.0), "timeout")
 	
 	var sequenceSuccess = float( ( float(score) / ( float(sequenceList.size()) * points_good)) * float(100) )
+	sequenceSuccess = sequenceSuccess * 100
+	sequenceSuccess = floor(sequenceSuccess)
+	sequenceSuccess = sequenceSuccess / 100
+
 	waveText.text = "Success : " + str(sequenceSuccess) + "%"
 	print("Game complete with score of " + str(score) + "/" + str(sequenceList.size()*points_good) )
 	

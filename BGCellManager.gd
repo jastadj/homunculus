@@ -16,13 +16,8 @@ func _ready():
 	
 func spawnCell(x,y,vx,vy,r):
 	var newcell = cellScene.instance()
-	add_child(newcell)
+	cellsNode.add_child(newcell)
 	newcell.setPosition(x,y)
 	newcell.setVelocity(vx,vy)
 	newcell.setAngularVelocity(r)
-	
-	# add new cell to Cells node
-	cellsNode.add_child(newcell)
-	
-	
 	

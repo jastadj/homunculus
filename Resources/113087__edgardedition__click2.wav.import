@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/113087__edgardedition__click2.wav-9020ad735dbef2002387fe925ab79405.sample"
+
+[deps]
+
+source_file="res://Resources/113087__edgardedition__click2.wav"
+source_md5="e7fa7800296166eb513c97a543d1f579"
+
+dest_files=[ "res://.import/113087__edgardedition__click2.wav-9020ad735dbef2002387fe925ab79405.sample" ]
+dest_md5="8ca325978627ba204bf1aa2055338f0e"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
