@@ -54,6 +54,8 @@ position = Vector2( 609.448, 501.978 )
 
 [node name="PowerSwitcher" parent="." index="4" instance=ExtResource( 6 )]
 
+initOut = false
+
 [node name="InputArea" type="Area2D" parent="." index="5"]
 
 position = Vector2( 375.671, 493.354 )

@@ -1,16 +1,20 @@
 extends Sprite
 
 export(float) var switchSpeed = 0.5
+export(bool) var initOut = true
+
 var outPos = Vector2(894, 314)
 var inPos = Vector2(27,300)
 var switcherIn = false
 
-func _ready():
-	init()
 
-func init():
-	position = outPos
-	switcherIn = false
+func _ready():
+	if initOut:
+		position = outPos
+		switcherIn = false
+	else:
+		position = inPos
+		switcherIn = true
 
 func switchIn():
 	var tween = get_node("Tween")

@@ -11,6 +11,7 @@ texture = ExtResource( 1 )
 script = ExtResource( 2 )
 _sections_unfolded = [ "Offset", "Transform" ]
 switchSpeed = 0.2
+initOut = true
 
 [node name="Tween" type="Tween" parent="." index="0"]
 
