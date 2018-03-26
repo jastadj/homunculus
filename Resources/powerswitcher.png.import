@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/atgc.png-0a6da0f2992d20ae4e2a5b3554a9b2c4.stex"
+path="res://.import/powerswitcher.png-d3ddbc3cc97fb4b00adbfa64b90469a3.stex"
 
 [deps]
 
-source_file="res://Resources/atgc.png"
-source_md5="9ebc7a08f19ca522abe4a9bf7cc6e8c7"
+source_file="res://Resources/powerswitcher.png"
+source_md5="b31b4007b38d117d5cae60706fc9ecd1"
 
-dest_files=[ "res://.import/atgc.png-0a6da0f2992d20ae4e2a5b3554a9b2c4.stex" ]
-dest_md5="b34825f9cb15a71f3c671e792747e77e"
+dest_files=[ "res://.import/powerswitcher.png-d3ddbc3cc97fb4b00adbfa64b90469a3.stex" ]
+dest_md5="fc4cf7dbc9db6d8703ba1bbc5e3adac9"
 
 [params]
 

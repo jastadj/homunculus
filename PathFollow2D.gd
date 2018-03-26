@@ -1,15 +1,16 @@
 extends PathFollow2D
 
-export(float) var speed
+var speed
 
 signal compliment_empty
 signal compliment_bad
 signal compliment_good
 
-func init(ptype):
+func init(ptype, nspeed):
 	get_child(0).set_frame(ptype)
 	get_child(1).texture = null
 	
+	speed = nspeed
 
 func _ready():
 	

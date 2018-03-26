@@ -32,8 +32,11 @@ const points_missed = 0
 # waves
 export(int) var waves = 1
 export(int) var waveCount = 10
+export(float) var initialWaveSpeed = 0.008
 var waveText
 
+# power switcher
+var powerSwitcher
 
 func _ready():
 	
@@ -53,6 +56,9 @@ func _ready():
 	
 	# get left path node
 	leftPath = get_node("/root/World/LeftPath")
+	
+	powerSwitcher = get_node("PowerSwitcher")
+	powerSwitcher.switchOut()
 	
 	# start waves
 	waveText = get_node("/root/World/WaveText")
@@ -77,7 +83,7 @@ func nextSpawn():
 		for c in waveCount:
 			
 			var newsequence = randi()%4
-			spawnLeftProtein(newsequence)
+			spawnLeftProtein(newsequence, initialWaveSpeed)
 			sequenceList.append(newsequence)
 			
 			yield(get_tree().create_timer(2.0), "timeout")
@@ -91,9 +97,12 @@ func nextSpawn():
 	var sequenceSuccess = float( ( float(score) / ( float(sequenceList.size()) * points_good)) * float(100) )
 	waveText.text = "Success : " + str(sequenceSuccess) + "%"
 	print("Game complete with score of " + str(score) + "/" + str(sequenceList.size()*points_good) )
+	
+	yield(get_tree().create_timer(3.0), "timeout")
+	get_tree().change_scene("res://MainMenu.tscn")
 
-func spawnLeftProtein(ptype):
-	leftPath.spawnLeftProtein(ptype)
+func spawnLeftProtein(ptype, tspeed):
+	leftPath.spawnLeftProtein(ptype, tspeed)
 	pass
 
 func spawnProtein_old(ptype, nisleft):
@@ -137,4 +146,3 @@ func ScoreBad():
 	print("Score bad")
 	score += points_bad
 
-	

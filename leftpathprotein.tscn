@@ -4,7 +4,7 @@
 [ext_resource path="res://protein_path.tscn" type="PackedScene" id=2]
 [ext_resource path="res://atgc.png" type="Texture" id=3]
 
-[node name="PathFollow2D" type="PathFollow2D"]
+[node name="PathFollow2D" type="PathFollow2D" index="0"]
 
 position = Vector2( -302.622, 130.904 )
 rotation = 0.145512
@@ -16,7 +16,6 @@ cubic_interp = true
 loop = true
 lookahead = 4.0
 script = ExtResource( 1 )
-speed = 0.008
 
 [node name="Sprite" parent="." index="0" instance=ExtResource( 2 )]
 

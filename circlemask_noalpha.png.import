@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/atgc.png-0a6da0f2992d20ae4e2a5b3554a9b2c4.stex"
+path="res://.import/circlemask_noalpha.png-32d1712541a4edbb8166381b70833d92.stex"
 
 [deps]
 
-source_file="res://Resources/atgc.png"
-source_md5="9ebc7a08f19ca522abe4a9bf7cc6e8c7"
+source_file="res://circlemask_noalpha.png"
+source_md5="13624c303b8fbfe3cd9ee7c3a207153b"
 
-dest_files=[ "res://.import/atgc.png-0a6da0f2992d20ae4e2a5b3554a9b2c4.stex" ]
-dest_md5="b34825f9cb15a71f3c671e792747e77e"
+dest_files=[ "res://.import/circlemask_noalpha.png-32d1712541a4edbb8166381b70833d92.stex" ]
+dest_md5="a1c22ef48dce657a9f0aada95c364cd8"
 
 [params]
 

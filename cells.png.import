@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/atgc.png-0a6da0f2992d20ae4e2a5b3554a9b2c4.stex"
+path="res://.import/cells.png-aec5e708938e9bcc3a38de935c9d396b.stex"
 
 [deps]
 
-source_file="res://Resources/atgc.png"
-source_md5="9ebc7a08f19ca522abe4a9bf7cc6e8c7"
+source_file="res://cells.png"
+source_md5="407e27fd3941d7e9bdf444e45f454cf3"
 
-dest_files=[ "res://.import/atgc.png-0a6da0f2992d20ae4e2a5b3554a9b2c4.stex" ]
-dest_md5="b34825f9cb15a71f3c671e792747e77e"
+dest_files=[ "res://.import/cells.png-aec5e708938e9bcc3a38de935c9d396b.stex" ]
+dest_md5="b88008f8bf3ac8326f6e83f54e33331e"
 
 [params]
 

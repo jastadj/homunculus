@@ -1,10 +1,14 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://GameController.gd" type="Script" id=1]
-[ext_resource path="res://Player.gd" type="Script" id=2]
-[ext_resource path="res://InputAreaSprite.tscn" type="PackedScene" id=3]
-[ext_resource path="res://InputArea.gd" type="Script" id=4]
-[ext_resource path="res://LeftPath.gd" type="Script" id=5]
+[ext_resource path="res://square.png" type="Texture" id=2]
+[ext_resource path="res://BGParticles.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Player.gd" type="Script" id=4]
+[ext_resource path="res://InputAreaSprite.tscn" type="PackedScene" id=5]
+[ext_resource path="res://PowerSwitcher.tscn" type="PackedScene" id=6]
+[ext_resource path="res://InputArea.gd" type="Script" id=7]
+[ext_resource path="res://LeftPath.gd" type="Script" id=8]
+[ext_resource path="res://vignette.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -28,19 +32,31 @@ minSpawnDelay = 0.5
 startSpawnDelay = 2.0
 waves = 3
 waveCount = 10
+initialWaveSpeed = 0.008
 
-[node name="Player" type="Node" parent="." index="0"]
+[node name="Sprite" type="Sprite" parent="." index="0"]
 
-script = ExtResource( 2 )
+modulate = Color( 0.0772552, 0.272125, 0.324219, 1 )
+position = Vector2( 391.938, 292.023 )
+scale = Vector2( 7.12403, 5.56286 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Visibility" ]
 
-[node name="InputAreaSprite" parent="." index="1" instance=ExtResource( 3 )]
+[node name="BGParticles" parent="." index="1" instance=ExtResource( 3 )]
+
+[node name="Player" type="Node" parent="." index="2"]
+
+script = ExtResource( 4 )
+
+[node name="InputAreaSprite" parent="." index="3" instance=ExtResource( 5 )]
 
 position = Vector2( 609.448, 501.978 )
 
-[node name="InputArea" type="Area2D" parent="." index="2"]
+[node name="PowerSwitcher" parent="." index="4" instance=ExtResource( 6 )]
 
-editor/display_folded = true
-position = Vector2( 375.671, 500.72 )
+[node name="InputArea" type="Area2D" parent="." index="5"]
+
+position = Vector2( 375.671, 493.354 )
 scale = Vector2( 5.08015, 1.88367 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -49,19 +65,44 @@ linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
-script = ExtResource( 4 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InputArea" index="0"]
 
+scale = Vector2( 1, 2 )
 shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
 
-[node name="LeftPath" type="Path2D" parent="." index="3"]
+[node name="LeftPath" type="Path2D" parent="." index="6"]
 
 position = Vector2( -31, -2 )
 curve = SubResource( 2 )
-script = ExtResource( 5 )
+script = ExtResource( 8 )
 
-[node name="WaveText" type="Label" parent="." index="4"]
+[node name="Control" type="Control" parent="." index="7"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="vignette" parent="Control" index="0" instance=ExtResource( 9 )]
+
+[node name="WaveText" type="Label" parent="." index="8"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -84,5 +125,8 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Anchor", "Rect" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
 
