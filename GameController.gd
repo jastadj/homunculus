@@ -7,7 +7,6 @@ var resolution
 
 # area trigger looking for proteins
 var inputArea
-var inputAreaY
 
 # player controller
 var player
@@ -42,17 +41,24 @@ func _ready():
 	
 	# get input area node and input y position
 	inputArea = get_node("/root/World/InputArea")
-	inputAreaY = get_node("/root/World/InputAreaSprite").position.y
 	
 	# get player controller
 	player = get_node("/root/World/Player")
 	player.connect("pressed_protein", self, "submitProtein")
+	
+	# connect player to needle
+	player.connect("pressed_protein", get_node("Needle"), "injectProtein")
+	
 	
 	# get left path node
 	leftPath = get_node("/root/World/LeftPath")
 	
 	powerSwitcher = get_node("PowerSwitcher")
 	powerSwitcher.switchOut()
+	
+	# reset globals
+	global.lastSequenceList = []
+	global.lastSuccess = 0.0
 	
 	# start waves
 	waveText = get_node("/root/World/WaveText")
@@ -64,6 +70,12 @@ func nextSpawn():
 	
 	#delay start
 	yield(get_tree().create_timer(2.0), "timeout")
+	
+	# move needle into position
+	get_node("Needle").moveNeedleIn()
+	
+	# wait a second
+	yield(get_tree().create_timer(1.0), "timeout")
 		
 	# start wave
 	for w in waves:
@@ -74,7 +86,7 @@ func nextSpawn():
 		waveText.text = ""
 		
 		
-		# spawn wave count
+		# start spawning proteins in wave
 		for c in waveCount:
 			
 			var newsequence = randi()%4
@@ -95,24 +107,30 @@ func nextSpawn():
 		# slight delay before starting next wave
 		yield(get_tree().create_timer(1.0), "timeout")
 	
+	endLevel()
+
+func endLevel():
+	
 	var sequenceSuccess = float( ( float(score) / ( float(sequenceList.size()) * points_good)) * float(100) )
 	sequenceSuccess = sequenceSuccess * 100
 	sequenceSuccess = floor(sequenceSuccess)
 	sequenceSuccess = sequenceSuccess / 100
 
-	waveText.text = "Success : " + str(sequenceSuccess) + "%"
+	#waveText.text = "Success : " + str(sequenceSuccess) + "%"
 	print("Game complete with score of " + str(score) + "/" + str(sequenceList.size()*points_good) )
-	yield(get_tree().create_timer(3.0), "timeout")
+	yield(get_tree().create_timer(1.0), "timeout")
 	
 	# clear text and switch power in
 	waveText.text = ""
 	powerSwitcher.switchIn()
 	yield(powerSwitcher.get_node("Tween"), "tween_completed")
 	
-	# add score to total score
+	# transfer current game to globals
 	global.addToTotalScore(score)
+	global.setLastSuccess(sequenceSuccess)
+	# note : sequencing is saved when protein is destroyed
 	
-	get_tree().change_scene("res://MainMenu.tscn")
+	get_tree().change_scene("res://Results.tscn")
 
 func spawnLeftProtein(ptype, tspeed):
 	leftPath.spawnLeftProtein(ptype, tspeed)
@@ -123,25 +141,25 @@ func spawnLeftProtein(ptype, tspeed):
 	
 func submitProtein(source, protein):
 	
-	print("submitted protein : " + str(protein) )
+	#print("submitted protein : " + str(protein) )
 	
 	var plist = inputArea.get_overlapping_areas()
 	
-	print("proteins in area : " + str(plist.size()) )
+	#print("proteins in area : " + str(plist.size()) )
 	
 	for p in plist:
-		print("protein pos: " + str(p.get_parent().get_parent().position) )
+		#print("protein pos: " + str(p.get_parent().get_parent().position) )
 		p.get_parent().get_parent().setCompliment(protein)
 
 func ScoreEmpty():
-	print("Score empty")
+	#print("Score empty")
 	score += points_missed
 
 func ScoreGood():
-	print("Score good")
+	#print("Score good")
 	score += points_good
 
 func ScoreBad():
-	print("Score bad")
+	#print("Score bad")
 	score += points_bad
 

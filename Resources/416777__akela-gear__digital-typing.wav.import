@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/416777__akela-gear__digital-typing.wav-eeaaa12c9e3ced727b37ef0645cf0029.sample"
+
+[deps]
+
+source_file="res://Resources/416777__akela-gear__digital-typing.wav"
+source_md5="c63d506d73056e796c54e7fb88917d2a"
+
+dest_files=[ "res://.import/416777__akela-gear__digital-typing.wav-eeaaa12c9e3ced727b37ef0645cf0029.sample" ]
+dest_md5="6e8f49a55f0b2183f18a62eac9eb1760"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=true
+compress/mode=0

@@ -1,15 +1,17 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://GameController.gd" type="Script" id=1]
 [ext_resource path="res://square.png" type="Texture" id=2]
 [ext_resource path="res://BGParticles.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Player.gd" type="Script" id=4]
-[ext_resource path="res://InputAreaSprite.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Resources/needle.png" type="Texture" id=6]
-[ext_resource path="res://PowerSwitcher.tscn" type="PackedScene" id=7]
-[ext_resource path="res://InputArea.gd" type="Script" id=8]
-[ext_resource path="res://LeftPath.gd" type="Script" id=9]
-[ext_resource path="res://vignette.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Needle.tscn" type="PackedScene" id=5]
+[ext_resource path="res://PowerSwitcher.tscn" type="PackedScene" id=6]
+[ext_resource path="res://InputArea.gd" type="Script" id=7]
+[ext_resource path="res://LeftPath.gd" type="Script" id=8]
+[ext_resource path="res://Resources/testpath.png" type="Texture" id=9]
+[ext_resource path="res://LeftPathRail.gd" type="Script" id=10]
+[ext_resource path="res://Resources/testpathcap.png" type="Texture" id=11]
+[ext_resource path="res://vignette.tscn" type="PackedScene" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -20,10 +22,10 @@ extents = Vector2( 9.84135, 10 )
 
 bake_interval = 5.0
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, -302.622, 130.904, 0, 0, 0, 0, -128.032, 176.31, 0, 0, 22.5846, 2.86789, -24.7325, 185.533, -13.9119, -4.48418, 16.2896, 3.42404, 29.0256, 196.864, -14.4748, -5.6834, 10.6648, 5.92796, 66.9724, 208.986, -11.9431, -6.80115, 16.0879, 9.22247, 98.0678, 224.534, -14.2765, -13.8605, 10.0158, 7.31233, 132.062, 249.568, -6.08576, -13.4477, 8.81136, 9.71414, 175.203, 301.06, -4.28515, -14.2891, 4.66181, 9.33974, 196.38, 354.818, 0.449713, -0.0631027, 0.134274, -0.0946636, 202.081, 441.97, -2.23319, -13.0675, 2.60462, 21.7422, 203.71, 625.234, 0, 0, 0, 0, 205.569, 843.926 )
+"points": PoolVector2Array( 0, 0, 0, 0, -302.622, 130.904, 0, 0, 0, 0, -128.032, 176.31, 0, 0, 22.5846, 2.86789, -24.7325, 185.533, -14.8825, -3.51358, 16.6131, 4.39464, 29.9155, 195.476, -15.1219, -6.00693, 10.6648, 5.92796, 71.0042, 210.358, -11.9431, -6.80115, 11.5584, 7.28127, 100.769, 226.211, -14.2765, -13.537, 13.8982, 12.1653, 132.062, 249.568, -6.08576, -13.4477, 10.7526, 18.4495, 175.203, 301.06, -4.28515, -14.2891, 5.95594, 31.34, 196.38, 354.818, 0.449713, -0.0631027, 0.134274, -0.0946636, 202.682, 439.42, -0.472686, -21.4299, 0.40399, 26.5836, 203.71, 625.234, 0, 0, 0, 0, 205.569, 843.926 )
 }
 
-[node name="World" type="Node" index="0"]
+[node name="World" type="Node"]
 
 script = ExtResource( 1 )
 waves = 3
@@ -48,38 +50,13 @@ __meta__ = {
 
 script = ExtResource( 4 )
 
-[node name="InputAreaSprite" parent="." index="3" instance=ExtResource( 5 )]
+[node name="Needle" parent="." index="3" instance=ExtResource( 5 )]
 
-position = Vector2( 600.448, 415.978 )
-
-[node name="Needle" type="Node2D" parent="." index="4"]
-
-position = Vector2( 640.781, 480.139 )
-rotation = 0.397935
-_sections_unfolded = [ "Transform" ]
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="NeedleSprite" type="Sprite" parent="Needle" index="0"]
-
-texture = ExtResource( 6 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="Tween" type="Tween" parent="Needle" index="1"]
-
-repeat = false
-playback_process_mode = 1
-playback_speed = 1.0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
-
-[node name="PowerSwitcher" parent="." index="5" instance=ExtResource( 7 )]
+[node name="PowerSwitcher" parent="." index="4" instance=ExtResource( 6 )]
 
 initOut = false
 
-[node name="InputArea" type="Area2D" parent="." index="6"]
+[node name="InputArea" type="Area2D" parent="." index="5"]
 
 position = Vector2( 371.671, 414.354 )
 scale = Vector2( 5.08015, 1.88367 )
@@ -90,7 +67,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
-script = ExtResource( 8 )
+script = ExtResource( 7 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -101,11 +78,222 @@ scale = Vector2( 1, 2 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="LeftPath" type="Path2D" parent="." index="7"]
+[node name="LeftPath" type="Path2D" parent="." index="6"]
 
 position = Vector2( -32.4453, -66.7716 )
 curve = SubResource( 2 )
-script = ExtResource( 9 )
+script = ExtResource( 8 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="LeftPathRail" type="Sprite" parent="." index="7"]
+
+position = Vector2( 32.6756, 358.255 )
+texture = ExtResource( 9 )
+script = ExtResource( 10 )
+_sections_unfolded = [ "Transform" ]
+speed = 20.0
+
+[node name="Phase0" type="Node" parent="LeftPathRail" index="0"]
+
+editor/display_folded = true
+
+[node name="Sprite" type="Sprite" parent="LeftPathRail/Phase0" index="0"]
+
+position = Vector2( 171.145, 365.37 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite5" type="Sprite" parent="LeftPathRail/Phase0" index="1"]
+
+position = Vector2( 167.57, 306.582 )
+rotation = -0.101229
+texture = ExtResource( 11 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite6" type="Sprite" parent="LeftPathRail/Phase0" index="2"]
+
+position = Vector2( 148.068, 245.699 )
+rotation = -0.460767
+texture = ExtResource( 11 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite7" type="Sprite" parent="LeftPathRail/Phase0" index="3"]
+
+position = Vector2( 111.99, 195.845 )
+rotation = -0.762709
+texture = ExtResource( 11 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite2" type="Sprite" parent="LeftPathRail/Phase0" index="4"]
+
+position = Vector2( 172.038, 425.932 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite3" type="Sprite" parent="LeftPathRail/Phase0" index="5"]
+
+position = Vector2( 172.038, 481.271 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite4" type="Sprite" parent="LeftPathRail/Phase0" index="6"]
+
+position = Vector2( 173.092, 539.509 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Phase1" type="Node" parent="LeftPathRail" index="1"]
+
+editor/display_folded = true
+
+[node name="Sprite" type="Sprite" parent="LeftPathRail/Phase1" index="0"]
+
+position = Vector2( 171.572, 381.745 )
+rotation = -0.0174533
+texture = ExtResource( 11 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite5" type="Sprite" parent="LeftPathRail/Phase1" index="1"]
+
+position = Vector2( 169.507, 324.985 )
+rotation = -0.101229
+texture = ExtResource( 11 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite6" type="Sprite" parent="LeftPathRail/Phase1" index="2"]
+
+position = Vector2( 156.746, 264.948 )
+rotation = -0.431096
+texture = ExtResource( 11 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite7" type="Sprite" parent="LeftPathRail/Phase1" index="3"]
+
+position = Vector2( 125.792, 210.922 )
+rotation = -0.703368
+texture = ExtResource( 11 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite2" type="Sprite" parent="LeftPathRail/Phase1" index="4"]
+
+position = Vector2( 172.038, 444.463 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite3" type="Sprite" parent="LeftPathRail/Phase1" index="5"]
+
+position = Vector2( 172.038, 499.278 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite4" type="Sprite" parent="LeftPathRail/Phase1" index="6"]
+
+position = Vector2( 173.267, 558.39 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Phase2" type="Node" parent="LeftPathRail" index="2"]
+
+editor/display_folded = true
+
+[node name="Sprite" type="Sprite" parent="LeftPathRail/Phase2" index="0"]
+
+position = Vector2( 172.172, 402.865 )
+rotation = -0.0174533
+texture = ExtResource( 11 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite5" type="Sprite" parent="LeftPathRail/Phase2" index="1"]
+
+position = Vector2( 170.92, 344.519 )
+rotation = -0.101229
+texture = ExtResource( 11 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite6" type="Sprite" parent="LeftPathRail/Phase2" index="2"]
+
+position = Vector2( 162.792, 283.652 )
+rotation = -0.207694
+texture = ExtResource( 11 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite7" type="Sprite" parent="LeftPathRail/Phase2" index="3"]
+
+position = Vector2( 137.783, 227.174 )
+rotation = -0.595157
+texture = ExtResource( 11 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite2" type="Sprite" parent="LeftPathRail/Phase2" index="4"]
+
+position = Vector2( 172.213, 462.501 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite3" type="Sprite" parent="LeftPathRail/Phase2" index="5"]
+
+position = Vector2( 172.27, 519.459 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite4" type="Sprite" parent="LeftPathRail/Phase2" index="6"]
+
+position = Vector2( 173.267, 579.151 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Control" type="Control" parent="." index="8"]
 
@@ -125,7 +313,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="vignette" parent="Control" index="0" instance=ExtResource( 10 )]
+[node name="vignette" parent="Control" index="0" instance=ExtResource( 12 )]
 
 [node name="WaveText" type="Label" parent="." index="9"]
 

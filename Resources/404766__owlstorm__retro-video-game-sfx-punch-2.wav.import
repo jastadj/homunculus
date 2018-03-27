@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/404766__owlstorm__retro-video-game-sfx-punch-2.wav-e29e8358ecdb49dee14a978bdddb170c.sample"
+
+[deps]
+
+source_file="res://Resources/404766__owlstorm__retro-video-game-sfx-punch-2.wav"
+source_md5="7a45d5fac4916f0e23fe8ba76ba2ff92"
+
+dest_files=[ "res://.import/404766__owlstorm__retro-video-game-sfx-punch-2.wav-e29e8358ecdb49dee14a978bdddb170c.sample" ]
+dest_md5="1ed59a5cf59217ff892b352c65d8c41d"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

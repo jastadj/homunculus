@@ -32,9 +32,17 @@ func _process(delta):
 	# protein is being deleted once off screen
 	if unit_offset > 0.85:
 		
+		# save sequencing in global
+		global.lastSequenceList.append(get_child(0).frame)
+		
+		
 		# determine if protein has proper matching protein
 		if get_child(1).texture == null:
 			emit_signal("compliment_empty")
+			global.lastSequenceList.append(null)
+		else:
+			global.lastSequenceList.append(get_child(1).frame)
+			
 		
 		queue_free()
 
