@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://displace.shader" type="Shader" id=1]
+
+[sub_resource type="StreamTexture" id=1]
+
+flags = 4
+load_path = "res://.import/displacement.jpg-1df85d1191b40d18a83a320f30ae9fb7.stex"
+_sections_unfolded = [ "Resource" ]
+
+[resource]
+
+render_priority = 0
+shader = ExtResource( 1 )
+shader_param/dispAmtX = 0.005
+shader_param/dispAmtY = 0.007
+shader_param/abberationAmt = 0.0
+shader_param/dispSize = 0.1
+shader_param/displace = SubResource( 1 )
+_sections_unfolded = [ "shader_param" ]
+

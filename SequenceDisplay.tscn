@@ -1,0 +1,160 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://SequenceDisplay.gd" type="Script" id=1]
+[ext_resource path="res://Resources/click_in.ogg" type="AudioStream" id=2]
+[ext_resource path="res://Resources/click_out.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Resources/416777__akela-gear__digital-typing.wav" type="AudioStream" id=4]
+[ext_resource path="res://Resources/404766__owlstorm__retro-video-game-sfx-punch-2.wav" type="AudioStream" id=5]
+[ext_resource path="res://Resources/resultspanel.png" type="Texture" id=6]
+[ext_resource path="res://displace.shader" type="Shader" id=7]
+
+[sub_resource type="StreamTexture" id=1]
+
+flags = 4
+load_path = "res://.import/displacement.jpg-1df85d1191b40d18a83a320f30ae9fb7.stex"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="ShaderMaterial" id=2]
+
+render_priority = 0
+shader = ExtResource( 7 )
+shader_param/dispAmtX = 0.005
+shader_param/dispAmtY = 0.007
+shader_param/abberationAmt = 0.0
+shader_param/dispSize = 0.1
+shader_param/displace = SubResource( 1 )
+_sections_unfolded = [ "shader_param" ]
+
+[node name="SequenceDisplay" type="Position2D"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+drawSpeed = 0.03
+
+[node name="ClickInSound" type="AudioStreamPlayer2D" parent="." index="0"]
+
+stream = ExtResource( 2 )
+volume_db = 0.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="ClickOutSound" type="AudioStreamPlayer2D" parent="." index="1"]
+
+stream = ExtResource( 3 )
+volume_db = 0.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="PrintSound" type="AudioStreamPlayer2D" parent="." index="2"]
+
+stream = ExtResource( 4 )
+volume_db = -5.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="ThudSound" type="AudioStreamPlayer2D" parent="." index="3"]
+
+stream = ExtResource( 5 )
+volume_db = 0.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="PanelSprite" type="Sprite" parent="." index="4"]
+
+scale = Vector2( 4, 4 )
+texture = ExtResource( 6 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="SuccessText" type="Label" parent="PanelSprite" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -37.0
+margin_top = 29.0
+margin_right = 110.0
+margin_bottom = 43.0
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Success : TEXT"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Rect" ]
+
+[node name="Control" type="Control" parent="PanelSprite" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -43.0
+margin_top = -31.0
+margin_right = 43.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="ColorRect" type="ColorRect" parent="PanelSprite/Control" index="0"]
+
+material = SubResource( 2 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 86.0
+margin_bottom = 47.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 1, 1, 1, 0 )
+_sections_unfolded = [ "Material" ]
+
+[node name="GlitchTween" type="Tween" parent="PanelSprite/Control" index="1"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="Tween" type="Tween" parent="." index="5"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+_sections_unfolded = [ "playback" ]
+
+

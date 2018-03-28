@@ -1,21 +1,45 @@
 extends Position2D
 
 signal donePrinting
+signal panelIsDown
+signal panelIsUp
+
+
 
 var seqScene
-var sequence = []
+var successText
+
+# sequence sprite
 export(float) var drawSpeed = 0.03
-
 var colSize = 10
-
 var spriteW
 var spriteH
+var spriteScale = 0.25
+var seqDrawPos
 
+# timers
 var timer
+var glitchTimer
 
+# sounds
 var printSound
+var thudSound
+var clickInSound
+var clickOutSound
+
+# panel and panel tween
+var panelSprite
+var tweenSpeed = 0.2
+var inPos = Vector2(0,400)
+var outPos
+
+# panel glitch shader
+var glitch
 
 func _ready():
+	
+	# init out position
+	outPos = position
 	
 	# get sequence scene
 	seqScene = load("res://SequenceSprite.tscn")
@@ -25,21 +49,80 @@ func _ready():
 	spriteW = tempsprite.get_texture().get_width()
 	spriteH = tempsprite.get_texture().get_height()
 	tempsprite.queue_free()
+	seqDrawPos = Vector2( -spriteW*spriteScale * 6, -25)
+	seqDrawPos.x = seqDrawPos.x + (spriteW*spriteScale)
 	
-	# DEBUG
-	#get_parent().debugGlobals()
+	# get sprites
+	panelSprite = get_node("PanelSprite")
 	
-	# get sequence from global
-	sequence = global.lastSequenceList
-	
+	# get sounds
 	printSound = get_node("PrintSound")
+	thudSound = get_node("ThudSound")
+	clickInSound = get_node("ClickInSound")
+	clickOutSound = get_node("ClickOutSound")
+	
+	# get labels
+	successText = panelSprite.get_node("SuccessText")
+	
+	
+	# get glitch shader material
+	glitch = get_node("PanelSprite/Control/ColorRect").get_material()
 	
 	# init timer
 	timer = Timer.new()
 	#timer.one_shot = true
 	timer.wait_time = drawSpeed
 	add_child(timer)
+	
+	# clear label
+	successText.text = ""
 
+
+func _process(delta):
+	pass
+	
+	#glitch.set_shader_param("DispSize", 0.5)
+
+func displayDown():
+	var tween = get_node("Tween")
+	tween.interpolate_property(self, "position", outPos, outPos + inPos, tweenSpeed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.start()
+	yield(tween, "tween_completed")
+	emit_signal("panelIsDown")
+	clickInSound.play()
+	
+func displayUp():
+	clickOutSound.play()
+	var tween = get_node("Tween")
+	tween.interpolate_property(self, "position", outPos + inPos, outPos, tweenSpeed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.start()
+	yield(tween, "tween_completed")
+	emit_signal("panelIsUp")
+	
+
+func drawSequence():
+	
+	# get sequence from global
+	var sequence = global.lastSequenceList
+	
+	timer.start()
+	
+	printSound.play()
+	for p in sequence.size():
+		var row = floor(p / colSize)
+		var col = p - (row * colSize)
+		var newsprite = createNewSprite(sequence[p])
+		newsprite.position = Vector2(row*spriteW + row*spriteW,col*spriteH)*spriteScale
+		newsprite.position = newsprite.position + seqDrawPos
+		yield(timer, "timeout")
+	printSound.stop()
+	
+	emit_signal("donePrinting")
+	
+func drawSuccessText():
+	successText.text = "Success : " + str(global.lastSuccess) + "%"
+	thudSound.play()
+	
 func createNewSprite(protein):
 	
 	var newsprite = seqScene.instance()
@@ -61,23 +144,8 @@ func createNewSprite(protein):
 		elif protein == 3:
 			color = Color(1,0,0,alpha)
 
-	add_child(newsprite)
+	panelSprite.add_child(newsprite)
 	newsprite.modulate = color
+	newsprite.scale = Vector2(spriteScale,spriteScale)
 	
 	return newsprite
-	
-
-func drawSequence():
-	
-	timer.start()
-	
-	printSound.play()
-	for p in sequence.size():
-		var row = floor(p / colSize)
-		var col = p - (row * colSize)
-		var newsprite = createNewSprite(sequence[p])
-		newsprite.position = Vector2(row*spriteW + row*spriteW,col*spriteH)
-		yield(timer, "timeout")
-	printSound.stop()
-	
-	emit_signal("donePrinting")
