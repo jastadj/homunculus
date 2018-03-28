@@ -8,27 +8,27 @@
 [ext_resource path="res://square.png" type="Texture" id=6]
 [ext_resource path="res://title.png" type="Texture" id=7]
 
-[sub_resource type="Shader" id=3]
+[sub_resource type="Shader" id=1]
 
 code = ""
 
-[sub_resource type="ShaderMaterial" id=4]
+[sub_resource type="ShaderMaterial" id=2]
 
 render_priority = 0
-shader = SubResource( 3 )
+shader = SubResource( 1 )
 
-[sub_resource type="Curve" id=5]
+[sub_resource type="Curve" id=3]
 
 min_value = 0.0
 max_value = 1.0
 bake_resolution = 100
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 1.4, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=6]
+[sub_resource type="CurveTexture" id=4]
 
 flags = 4
 width = 2048
-curve = SubResource( 5 )
+curve = SubResource( 3 )
 
 [node name="MainMenu" type="Node"]
 
@@ -144,12 +144,12 @@ _sections_unfolded = [ "Rect" ]
 [node name="Sprite" type="Sprite" parent="." index="7"]
 
 modulate = Color( 0.197754, 0.667591, 0.703125, 1 )
-material = SubResource( 4 )
+material = SubResource( 2 )
 position = Vector2( 385.87, 285.819 )
 scale = Vector2( 7.02922, 5.46592 )
 z_index = -1
 texture = ExtResource( 6 )
-normal_map = SubResource( 6 )
+normal_map = SubResource( 4 )
 _sections_unfolded = [ "Animation", "Material", "Offset", "Visibility" ]
 __meta__ = {
 "_edit_lock_": true
