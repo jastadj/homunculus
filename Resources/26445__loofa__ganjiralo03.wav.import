@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/26445__loofa__ganjiralo03.wav-71a28a9bb144062ea7f91bfb13a5f04e.sample"
+
+[deps]
+
+source_file="res://Resources/26445__loofa__ganjiralo03.wav"
+source_md5="396f4582e4dd31c2db93a2537e1a46e1"
+
+dest_files=[ "res://.import/26445__loofa__ganjiralo03.wav-71a28a9bb144062ea7f91bfb13a5f04e.sample" ]
+dest_md5="734681f8828ad6c86025743d003c72ba"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

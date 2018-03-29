@@ -7,7 +7,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 31.309, 32.4863 )
 
-[node name="Sprite" type="Sprite" index="0"]
+[node name="Sprite" type="Sprite"]
 
 rotation = -1.5708
 scale = Vector2( 2, 2 )

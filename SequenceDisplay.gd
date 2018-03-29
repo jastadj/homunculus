@@ -118,11 +118,43 @@ func drawSequence():
 	printSound.stop()
 	
 	emit_signal("donePrinting")
+
+func clearSequences():
+	panelSprite.get_node("Sequences").queue_free()
 	
 func drawSuccessText():
 	successText.text = "Success : " + str(global.lastSuccess) + "%"
 	thudSound.play()
 	
+func drawSummary():
+	var txt = get_node("PanelSprite/SummaryText")
+	var success = global.lastSuccess
+	
+	var rating = ""
+	var basetype = global.lastBaseType
+	
+	if success == 100.0:
+		rating = "GODLIKE"
+	elif success >= 90.0:
+		rating = "Superior"
+	elif success >= 80.0:
+		rating = "Normal"
+	elif success >= 70.0:
+		rating = "Mutant"
+	elif success >= 60.0:
+		rating = "Fodder"
+	else:
+		rating = "Horror"
+		global.horrorCount += 1
+	
+	txt.text = "\nRating : " + rating + "\n\nBase Type : " + basetype
+	
+func clearSummary():
+	get_node("PanelSprite/SummaryText").text = ""
+
+func enableInput():
+	get_node("CreationName").grab_focus()
+
 func createNewSprite(protein):
 	
 	var newsprite = seqScene.instance()
@@ -144,7 +176,7 @@ func createNewSprite(protein):
 		elif protein == 3:
 			color = Color(1,0,0,alpha)
 
-	panelSprite.add_child(newsprite)
+	panelSprite.get_node("Sequences").add_child(newsprite)
 	newsprite.modulate = color
 	newsprite.scale = Vector2(spriteScale,spriteScale)
 	

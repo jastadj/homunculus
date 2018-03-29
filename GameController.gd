@@ -17,9 +17,11 @@ var leftPath
 # score
 var score = 0
 var sequenceList = []
+var basetype
 const points_good = 20
 const points_bad = 5
 const points_missed = 0
+var scoreText
 
 # waves
 export(int) var waves = 1
@@ -60,11 +62,22 @@ func _ready():
 	global.lastSequenceList = []
 	global.lastSuccess = 0.0
 	
+	# Score Text
+	scoreText = get_node("ScoreText")
+	scoreText.text = ""
+	
+	# Get Sequence Base Type (animal)
+	basetype = global.dnabases[ randi()%global.dnabases.size()]
+	global.lastBaseType = basetype
+	
 	# start waves
 	waveText = get_node("/root/World/WaveText")
 	waveText.text = ""
 	nextSpawn()
 
+func _process(delta):
+	if scoreText.text != "":
+		scoreText.text = "Score : " + str(global.totalScore + score)
 
 func nextSpawn():
 	
@@ -76,6 +89,8 @@ func nextSpawn():
 	
 	# wait a second
 	yield(get_tree().create_timer(1.0), "timeout")
+	
+	scoreText.text = "Score : " + str(global.totalScore + score)
 		
 	# start wave
 	for w in waves:
@@ -85,13 +100,30 @@ func nextSpawn():
 		yield(get_tree().create_timer(2.0), "timeout")
 		waveText.text = ""
 		
+		var levelnum = global.level
+		var waveType = range(0, waveCount)
+		
+		if levelnum > 3:
+			levelnum = randi()%3 + 1
+		
+		if levelnum == 2:
+			waveType = range(0,waveCount,2)
+		elif levelnum == 3:
+			waveSpeed = 0.008
+		
 		
 		# start spawning proteins in wave
-		for c in waveCount:
+		for c in waveType:
 			
 			var newsequence = randi()%4
 			spawnLeftProtein(newsequence, waveSpeed)
 			sequenceList.append(newsequence)
+			
+			if global.level == 2:
+				yield(get_tree().create_timer(0.5), "timeout")
+				var newsequence2 = randi()%4
+				spawnLeftProtein(newsequence2, waveSpeed)
+				sequenceList.append(newsequence2)
 			
 			# wait until next protein spawn
 			yield(get_tree().create_timer(waveDelay), "timeout")
@@ -161,5 +193,6 @@ func ScoreGood():
 
 func ScoreBad():
 	#print("Score bad")
-	score += points_bad
+	#score += points_bad
+	score += points_missed
 

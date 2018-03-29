@@ -7,6 +7,7 @@ var sequenceDisplay
 func _ready():
 	
 	sequenceDisplay = get_node("SequenceDisplay")
+	get_node("PresstoContinue").hide()
 	
 	# DEBUG ONLY
 	#global.debugGlobals()
@@ -32,13 +33,21 @@ func showResults():
 	yield(get_tree().create_timer(1.25), "timeout")
 	sequenceDisplay.drawSuccessText()
 	
+	yield(get_tree().create_timer(1.0), "timeout")
+	sequenceDisplay.clearSequences()
+	sequenceDisplay.drawSummary()
+	
+	get_node("PresstoContinue").show()
 	yield(self, "presstocontinue")
 	sequenceDisplay.displayUp()
+	get_node("PresstoContinue").hide()
 	
+	yield(get_tree().create_timer(1.0), "timeout")
 	
-	
-	yield(self, "presstocontinue")	
-	get_tree().change_scene("res://World.tscn")
+	if global.horrorCount >= 2:
+		get_tree().change_scene("res://GameOver.tscn")
+	else:
+		get_tree().change_scene("res://World.tscn")
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):

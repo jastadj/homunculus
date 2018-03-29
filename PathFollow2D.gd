@@ -68,3 +68,5 @@ func setCompliment(ptype):
 		emit_signal("compliment_good")
 	else:
 		emit_signal("compliment_bad")
+		
+	get_node("ConnectSound").play()

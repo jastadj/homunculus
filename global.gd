@@ -3,7 +3,11 @@ extends Node
 var totalScore = 0
 var lastSequenceList = []
 var lastSuccess = 0.0
+var lastBaseType = ""
 var level = 1
+var horrorCount = 0
+
+var dnabases = []
 
 func addToTotalScore(addval):
 	totalScore += addval
@@ -16,6 +20,15 @@ func reset():
 	lastSequenceList = []
 	lastSuccess = 0.0
 	level = 1
+	horrorCount = 0
+	
+	dnabases = []
+	dnabases.append("deer")
+	dnabases.append("chimpanzee")
+	dnabases.append("horse")
+	dnabases.append("tortoise")
+	dnabases.append("wolf")
+	dnabases.append("cow")
 
 func setLastSequence(seq):
 	lastSequenceList = seq
@@ -26,6 +39,7 @@ func setLastSuccess(success):
 func debugGlobals():
 	
 	print("***** SETTING DEBUG GLOBALS *****")
+	reset()
 	
 	randomize()
 	
@@ -38,3 +52,4 @@ func debugGlobals():
 	
 	lastSuccess = 88.8
 	totalScore = 550
+	lastBaseType = "monkey"

@@ -72,6 +72,8 @@ func startNewGame():
 	
 	print("Starting new game...")
 	
+	global.reset()
+	
 	#test
 	doPowerSwitcher()
 	
